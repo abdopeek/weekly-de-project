@@ -17,15 +17,18 @@ def load_raw_dataset(dataset_name, data_dir=raw_data_dir):
     if not file_path.exists():
         print("File path does not exist for dataset: " + dataset_name)
 
-    parse_dates = date_time_columns.get(dataset_name, False)
-    df = pd.read_csv(file_path, parse_dates=parse_dates)
+    parse_dates = date_time_columns.get(dataset_name)
+    if parse_dates:
+        df = pd.read_csv(file_path, parse_dates=parse_dates)
+    else:
+        df=pd.read_csv(file_path)
 
+    df = df.loc[:, ~df.columns.str.contains('^Unname|^False')]
     return df
 
 
 print("Testing date parsing/ingestion for orders dataset")
-orders_df = load_raw_dataset("orders")
+orders_df = load_raw_dataset("customers")
 print("Data types:")
 print(orders_df.dtypes)
-sample = orders_df["order_purchase_timestamp"].iloc[0]
-print(f"Sample value: {sample} | Data type: {type(sample)}")
+print("Columns: ", list(orders_df.columns))
