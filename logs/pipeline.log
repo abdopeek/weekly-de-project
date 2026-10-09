@@ -74,3 +74,31 @@
 2026-10-09 13:10:08,358 [INFO] ETL_Loader: No new records, leaving table 'order_reviews' as is
 2026-10-09 13:10:08,377 [INFO] ETL_Loader: Successfully loaded order_reviews table
 2026-10-09 13:10:08,377 [INFO] ETL_Loader: Successfully ran loading level
+2026-10-09 13:19:17,301 [INFO] Pipeline_Orchestrator: Starting end-to-end data pipeline execution...
+2026-10-09 13:19:17,304 [INFO] Pipeline_Orchestrator: Step 2: Running idempotent data loading...
+2026-10-09 13:19:17,332 [INFO] ETL_Loader: Starting loading stage of pipeline
+2026-10-09 13:19:17,332 [INFO] ETL_Loader: Loading dataset: customers
+2026-10-09 13:19:17,731 [INFO] ETL_Loader: No new records, leaving table 'customers' as is
+2026-10-09 13:19:17,735 [INFO] ETL_Loader: Successfully loaded customers table
+2026-10-09 13:19:17,735 [INFO] ETL_Loader: Loading dataset: products
+2026-10-09 13:19:17,840 [INFO] ETL_Loader: No new records, leaving table 'products' as is
+2026-10-09 13:19:17,841 [INFO] ETL_Loader: Successfully loaded products table
+2026-10-09 13:19:17,841 [INFO] ETL_Loader: Loading dataset: sellers
+2026-10-09 13:19:17,854 [INFO] ETL_Loader: No new records, leaving table 'sellers' as is
+2026-10-09 13:19:17,854 [INFO] ETL_Loader: Successfully loaded sellers table
+2026-10-09 13:19:17,854 [INFO] ETL_Loader: Loading dataset: orders
+2026-10-09 13:19:18,661 [INFO] ETL_Loader: No new records, leaving table 'orders' as is
+2026-10-09 13:19:18,663 [INFO] ETL_Loader: Successfully loaded orders table
+2026-10-09 13:19:18,663 [INFO] ETL_Loader: Loading dataset: order_items
+2026-10-09 13:19:19,169 [INFO] ETL_Loader: No new records, leaving table 'order_items' as is
+2026-10-09 13:19:19,188 [INFO] ETL_Loader: Successfully loaded order_items table
+2026-10-09 13:19:19,188 [INFO] ETL_Loader: Loading dataset: order_payments
+2026-10-09 13:19:19,514 [INFO] ETL_Loader: No new records, leaving table 'order_payments' as is
+2026-10-09 13:19:19,529 [INFO] ETL_Loader: Successfully loaded order_payments table
+2026-10-09 13:19:19,529 [INFO] ETL_Loader: Loading dataset: order_reviews
+2026-10-09 13:19:20,115 [INFO] ETL_Loader: No new records, leaving table 'order_reviews' as is
+2026-10-09 13:19:20,133 [INFO] ETL_Loader: Successfully loaded order_reviews table
+2026-10-09 13:19:20,133 [INFO] ETL_Loader: Successfully ran loading level
+2026-10-09 13:19:20,139 [INFO] Pipeline_Orchestrator: Step 3: Verifying table counts...
+2026-10-09 13:19:20,223 [INFO] Pipeline_Orchestrator: Step 4: Executing analytical queries...
+2026-10-09 13:19:20,483 [INFO] Pipeline_Orchestrator: Pipeline execution finished successfully!
