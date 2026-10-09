@@ -92,7 +92,7 @@ pip install -r requirements.txt
 
 ```
 
-### 4. Execute the End-to-End Pipeline
+### 3. Execute the End-to-End Pipeline
 
 Run the full orchestration flow via `src/main.py`:
 
@@ -109,7 +109,7 @@ python src/main.py
 
 ```
 
-### 5. Inspect Audit Logs & Run Analytics
+### 4. Inspect Audit Logs & Run Analytics
 
 View step-by-step pipeline execution logs:
 
@@ -122,7 +122,3 @@ Run analytical reports directly against PostgreSQL:
 
 ```bash
 python src/analytics.py
-
-```
-
-```
