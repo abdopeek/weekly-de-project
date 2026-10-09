@@ -27,8 +27,11 @@ def load_raw_dataset(dataset_name, data_dir=raw_data_dir):
     return df
 
 
-print("Testing date parsing/ingestion for orders dataset")
-orders_df = load_raw_dataset("customers")
-print("Data types:")
-print(orders_df.dtypes)
-print("Columns: ", list(orders_df.columns))
+if __name__ == "__main__":
+    load_raw_dataset()
+
+# print("Testing date parsing/ingestion for orders dataset")
+# orders_df = load_raw_dataset("customers")
+# print("Data types:")
+# print(orders_df.dtypes)
+# print("Columns: ", list(orders_df.columns))
