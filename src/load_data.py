@@ -17,6 +17,61 @@ table_load_order = [
     "customers", "products", "sellers", "orders" ,"order_items", "order_payments", "order_reviews"
 ]
 
+pk_columns = {
+    "customers": ("customer_id",),
+    "products": ("product_id",),
+    "sellers": ("seller_id",),
+    "orders": ("order_id",),
+    "order_items": ("order_id", "order_item_id"),
+    "order_payments": ("order_id", "payment_sequential"),
+    "order_reviews": ("review_id", "order_id")
+}
+
+
+def insert_new_records(df, table, pk_cols, engine):
+    # get all keys already in the db
+    cols_str = ", ".join(pk_cols)
+    # get all new keys in the df
+    try:
+        existing_keys = (pd.read_sql(F"SELECT {cols_str} FROM {table}", con=engine))
+
+    except Exception as e:
+        print(f"Error occurred while filtering new records for table {table}: {e}")
+        existing_keys = pd.DataFrame()
+
+
+    if existing_keys.empty:
+        print(f"--> No existing records found in table '{table}'")
+        new_records = df
+
+    if len(pk_cols) == 1:
+        pk = pk_cols[0]
+        existing_keys_set = set(existing_keys[pk])
+        new_records = df[~df[pk].isin(existing_keys_set)]
+    else:
+        existing_tuples = set(zip(*[existing_keys[col] for col in pk_cols]))
+        incoming_tuples = zip(*[df[col] for col in pk_cols])
+        mask = [tup not in existing_tuples for tup in incoming_tuples]
+        new_records = df[mask]
+
+
+    if new_records.empty:
+        print(f"--> No new records, leaving table {table} as is")
+        return
+
+    # return new records
+    print(f"--> Loading {len(new_records):,} rows into postgres at table {table}")
+    new_records.to_sql(
+        name=table,
+        con=engine,
+        if_exists="append",
+        index=False,
+        chunksize=2000,
+        method="multi"
+    )
+    return
+
+
 def load_all_datasets():
     engine = create_engine(db_url)
     print("Starting ingestion and loading pipeline 1/3")
@@ -24,17 +79,8 @@ def load_all_datasets():
     for table in table_load_order:
         print(f"--> Ingesting dataset: {table}")
         df = load_raw_dataset(table)
-
-        print(f"--> Loading {len(df):,} rows into postgers")
-
-        df.to_sql(
-            name=table,
-            con=engine,
-            if_exists="append",
-            index=False,
-            chunksize=2000,
-            method="multi"
-        )
+        
+        insert_new_records(df, table, pk_columns[table], engine)
         print(f"Successfully loaded '{table}'")
     print("Pipeline ingestion complete, all datasets loaded")
 
